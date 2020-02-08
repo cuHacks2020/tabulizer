@@ -1,21 +1,15 @@
-// const fetch = require("node-fetch");
-// const jsdom = require("jsdom");
-import jsdom from 'jsdom';
-
-const { JSDOM } = jsdom;
-async function getSongs() {
-    const songs = await fetch('https://www.azchords.com/a/adamsandler-tabs-113/odetomycar-tabs-205998.html',);
-
-    const dom = new JSDOM(await songs.text());
-    tabText = dom.window.document.querySelector('pre').textContent
+export async function getSong(url) {
+    const songs = await fetch(url);
+    const rawHtml = await songs.text();
+    const tabText = getFromBetween.get(rawHtml,"pre", "/pre")[1];
 
     let eTabs = getFromBetween.get(tabText,"E|", "|");
     let BTabs = getFromBetween.get(tabText,"B|", "|");
     let GTabs = getFromBetween.get(tabText,"G|", "|");
     let DTabs = getFromBetween.get(tabText,"D|", "|");
     let ATabs = getFromBetween.get(tabText,"A|", "|");
-
-    lines = [];
+    
+    const lines = [];
     for (let i = 0; i < BTabs.length; i++) {
         lines.push({
             "e" : eTabs[i*2],
@@ -23,7 +17,7 @@ async function getSongs() {
             "G" : GTabs[i],
             "D" : DTabs[i],
             "A" : ATabs[i],
-            "E" : eTabs[(i-1)/2 + 1]
+            "E" : eTabs[((i-1)*2) + 1]
         })
     }
 
@@ -70,5 +64,3 @@ var getFromBetween = {
         return this.results;
     }
 };
-
-getSongs();

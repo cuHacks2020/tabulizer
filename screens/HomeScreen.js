@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator} from "react-native";
-// import {getSongs} from "../utilities";
+import {getSong} from "../src/WebParser";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 4,
     minWidth: 350,
-    fontSize: 50
+    fontSize: 50,
+    marginBottom: 20,
   },
   buttonText: {
     color: "white",
@@ -44,21 +45,33 @@ const styles = StyleSheet.create({
 export const HomeScreen = (props) => 
 {
   const {navigation} = props;
-  const [songs, setSongs] = useState(null);
-  const [url, setUrl] = useState('');
-  // useEffect(() => {
-  //   setSongs(getSongs())
-  // }, []);
+  const [song, setSong] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [url, setUrl] = useState('https://www.azchords.com/a/adamsandler-tabs-113/odetomycar-tabs-205998.html');
 
   const renderItem = ({item}) => (
     <TouchableOpacity key={item.key} style={styles.button} onPress={() => navigation.navigate('Guitar')}>
       <Text style={styles.buttonText}>{item.key}</Text>
     </TouchableOpacity>
   )
+
+  const onSearch = async () => {
+    setLoading(true);
+    try {
+      setSong(await getSong(url));
+    } catch {
+      setSong("bad");
+      setLoading(false);
+      return;
+    }
+
+    navigation.navigate('Guitar');
+    setLoading(false);
+  };
   
   return (
     <View style={styles.container}>
-      <Text style={styles.appName}>Tabulizerr</Text>
+      <Text style={styles.appName}>Tabulizer</Text>
       <Text style={styles.description}>Enter a song URL</Text>
 
       <TextInput 
@@ -66,14 +79,10 @@ export const HomeScreen = (props) =>
       onChangeText={text => setUrl(text)}
       value={url}
       />
-      <TouchableOpacity disabled style={styles.button} onPress={() => navigation.navigate('Guitar')}>
+      <TouchableOpacity style={styles.button} onPress={onSearch}>
         <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
-      {/* {songs ?
-        <FlatList
-            data={songs}
-            renderItem={renderItem} 
-        /> : <ActivityIndicator size="large" color="#0000ff" />} */}
+      {loading  ? <ActivityIndicator size="large" color="#0000ff" /> : song === "bad" && <Text>Failed to parse song</Text> }
       
     </View>
   );
