@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator} from "react-native";
-import {getSong} from "../src/WebParser";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
+import { getSong } from "../src/WebParser";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -10,46 +10,33 @@ const styles = StyleSheet.create({
   },
   appName: {
     fontSize: 55,
-    fontWeight: '700',
-    color: '#5f27cd'
+    fontWeight: "700",
+    color: "#5f27cd"
   },
   description: {
     paddingHorizontal: 48,
-    textAlign: 'center',
-    marginBottom: 20,
-    color: '#341f97'
+    textAlign: "center",
+    marginBottom: 48,
+    color: "#341f97"
   },
   button: {
-    marginTop: 20,
-    backgroundColor: '#341f97',
-    paddingHorizontal: 30,
-    paddingVertical: 16,
-    borderRadius: 4,
-    minWidth: 350,
-    fontSize: 50,
-    marginBottom: 20,
+    backgroundColor: "#341f97",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 4
   },
   buttonText: {
-    color: "white",
-  },
-  input: {
-    height: 40,
-    paddingHorizontal: 10,
-    fontSize: 17,
-    borderColor: 'gray', 
-    borderWidth: 1,
-    minWidth: 350
+    color: "white"
   }
-})
+});
 
-export const HomeScreen = (props) => 
-{
-  const {navigation} = props;
+export const HomeScreen = (props) => {
+  const { navigation } = props;
   const [song, setSong] = useState(null);
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState('https://www.azchords.com/a/adamsandler-tabs-113/odetomycar-tabs-205998.html');
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <TouchableOpacity key={item.key} style={styles.button} onPress={() => navigation.navigate('Guitar')}>
       <Text style={styles.buttonText}>{item.key}</Text>
     </TouchableOpacity>
@@ -68,28 +55,28 @@ export const HomeScreen = (props) =>
     navigation.navigate('Guitar');
     setLoading(false);
   };
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.appName}>Tabulizer</Text>
       <Text style={styles.description}>Enter a song URL</Text>
 
-      <TextInput 
-      style={styles.input}
-      onChangeText={text => setUrl(text)}
-      value={url}
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setUrl(text)}
+        value={url}
       />
       <TouchableOpacity style={styles.button} onPress={onSearch}>
         <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
-      {loading  ? <ActivityIndicator size="large" color="#0000ff" /> : song === "bad" && <Text>Failed to parse song</Text> }
-      
+      {loading ? <ActivityIndicator size="large" color="#0000ff" /> : song === "bad" && <Text>Failed to parse song</Text>}
+
     </View>
   );
-}
+};
 
 HomeScreen.navigationOptions = () => {
   return {
-    headerShown: false,
-  }
-}
+    headerShown: false
+  };
+};

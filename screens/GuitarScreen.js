@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image, View, Text, TouchableOpacity} from "react-native";
+import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -49,13 +49,36 @@ const styles = StyleSheet.create({
   },
   speakerRole: {
     fontSize: 11
+  },
+  guitar: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  string: {
+    backgroundColor: "green"
+  },
+  fret: {
+    width: 40,
+    height: 60,
+    backgroundColor: "#795548",
+    borderBottomColor: "#AAAAAA",
+    borderBottomWidth: 2
   }
 });
 
-export const GuitarScreen = (props) => {
-  return (
-    <View style={styles.container}>
-      <Text>Guitar</Text>
-    </View>
-  );
+export const GuitarScreen = props => {
+  let strings = [];
+  let frets = [];
+  const numStrings = 6;
+  const numFrets = 12;
+  for (let i = 0; i < numStrings; i++) {
+    frets = [];
+    for (let j = 0; j < numFrets; j++) {
+      frets.push(<View style={styles.fret} />);
+    }
+    strings.push(<View style={styles.guitar}>{frets}</View>);
+  }
+  return <View style={styles.container}>{strings}</View>;
+  // return <Text>bruh</Text>;
 };
