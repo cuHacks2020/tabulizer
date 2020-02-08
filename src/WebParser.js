@@ -1,5 +1,7 @@
-const fetch = require("node-fetch");
-const jsdom = require("jsdom");
+// const fetch = require("node-fetch");
+// const jsdom = require("jsdom");
+import jsdom from 'jsdom';
+
 const { JSDOM } = jsdom;
 async function getSongs() {
     const songs = await fetch('https://www.azchords.com/a/adamsandler-tabs-113/odetomycar-tabs-205998.html',);
