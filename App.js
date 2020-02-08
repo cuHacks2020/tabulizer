@@ -1,19 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {HomeScreen} from './screens/HomeScreen';
+import {GuitarScreen} from './screens/GuitarScreen';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>This is sick!</Text>
-    </View>
-  );
-}
+const AppNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Guitar: GuitarScreen,
+}); //, {headerMode: 'none'});
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default createAppContainer(AppNavigator);
