@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import { getSong } from "../src/WebParser";
 const styles = StyleSheet.create({
@@ -16,17 +16,31 @@ const styles = StyleSheet.create({
   description: {
     paddingHorizontal: 48,
     textAlign: "center",
-    marginBottom: 48,
+    marginBottom: 20,
     color: "#341f97"
   },
   button: {
     backgroundColor: "#341f97",
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 4
+    paddingVertical: 16,
+    borderRadius: 4,
+    width: 350,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50
   },
   buttonText: {
-    color: "white"
+    color: "white",
+    fontSize: 17
+  },
+  input: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: 350,
+    marginBottom: 20,
+    paddingHorizontal: 10
   }
 });
 

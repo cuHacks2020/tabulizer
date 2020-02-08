@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     tabDisplay:
     {
+        flex: 1,
         backgroundColor: "green",
     }
 });

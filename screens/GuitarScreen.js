@@ -16,10 +16,10 @@ export const GuitarScreen = props => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, backgroundColor: 'skyblue' }}>
+      <View style={{ flex: 2 }}>
         <TabDisplay />
       </View>
-      <View style={{ flex: 2, backgroundColor: 'steelblue' }}>
+      <View style={{ flex: 3 }}>
         <GuitarDisplay />
       </View>
     </View>
