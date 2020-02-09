@@ -10,14 +10,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export const GuitarScreen = props => {
+export function GuitarScreen(props) {
+  // console.log(props.navigation.state.params);
+  const song = props.navigation.state.params.song;
+
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, backgroundColor: "skyblue" }}>
-        <TabDisplay />
+      <View style={{ flex: 1 }}>
+        <TabDisplay song={song} />
       </View>
       <View style={{ flex: 2, backgroundColor: "indianred" }}>
-        <GuitarDisplay />
+        <GuitarDisplay tabIndex={6} song={song} />
       </View>
     </View>
   );

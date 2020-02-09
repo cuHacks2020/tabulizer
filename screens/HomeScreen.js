@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import { getSong } from "../src/WebParser";
 const styles = StyleSheet.create({
@@ -16,17 +16,31 @@ const styles = StyleSheet.create({
   description: {
     paddingHorizontal: 48,
     textAlign: "center",
-    marginBottom: 48,
+    marginBottom: 20,
     color: "#341f97"
   },
   button: {
     backgroundColor: "#341f97",
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 4
+    paddingVertical: 16,
+    borderRadius: 4,
+    width: 350,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50
   },
   buttonText: {
-    color: "white"
+    color: "white",
+    fontSize: 17
+  },
+  input: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: 350,
+    marginBottom: 20,
+    paddingHorizontal: 10
   }
 });
 
@@ -34,7 +48,7 @@ export const HomeScreen = (props) => {
   const { navigation } = props;
   const [song, setSong] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState('https://www.azchords.com/a/adamsandler-tabs-113/odetomycar-tabs-205998.html');
+  const [url, setUrl] = useState('https://www.azchords.com/c/cashjohnny-tabs-717/hurt-tabs-7752.html');
 
   const renderItem = ({ item }) => (
     <TouchableOpacity key={item.key} style={styles.button} onPress={() => navigation.navigate('Guitar')}>
@@ -44,15 +58,17 @@ export const HomeScreen = (props) => {
 
   const onSearch = async () => {
     setLoading(true);
+    let songObj;
     try {
-      setSong(await getSong(url));
+      songObj = await getSong(url)
+      setSong(songObj);
     } catch {
       setSong("bad");
       setLoading(false);
       return;
     }
 
-    navigation.navigate('Guitar');
+    navigation.navigate('Guitar', {song: songObj});
     setLoading(false);
   };
 
