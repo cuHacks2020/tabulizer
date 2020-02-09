@@ -3,56 +3,25 @@ import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 import { TabDisplay } from "./components/TabDisplay";
 import { GuitarDisplay } from "./components/GuitarDisplay";
 
-
 const styles = StyleSheet.create({
-  container:
-  {
+  container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   }
 });
 
 export const GuitarScreen = props => {
-
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, backgroundColor: 'skyblue' }}>
+      <View style={{ flex: 1, backgroundColor: "skyblue" }}>
         <TabDisplay />
       </View>
-      <View style={{ flex: 2, backgroundColor: 'steelblue' }}>
+      <View style={{ flex: 2, backgroundColor: "indianred" }}>
         <GuitarDisplay />
       </View>
     </View>
   );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 // const styles = StyleSheet.create({
 //   container: {
