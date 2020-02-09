@@ -3,12 +3,10 @@ import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 import { TabDisplay } from "./components/TabDisplay";
 import { GuitarDisplay } from "./components/GuitarDisplay";
 
-
 const styles = StyleSheet.create({
-  container:
-  {
+  container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   }
 });
 
@@ -20,42 +18,14 @@ export function GuitarScreen(props) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
-        <TabDisplay song={song}/>
+        <TabDisplay song={song} />
       </View>
-      <View style={{ flex: 3 }}>
+      <View style={{ flex: 3, backgroundColor: "indianred" }}>
         <GuitarDisplay />
       </View>
     </View>
   );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 // const styles = StyleSheet.create({
 //   container: {
