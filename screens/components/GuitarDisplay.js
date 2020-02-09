@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     guitarDisplay:
     {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: "#70a1ff",
     }
 });
 

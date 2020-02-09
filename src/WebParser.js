@@ -1,66 +1,37 @@
 export async function getSong(url) {
     const songs = await fetch(url);
     const rawHtml = await songs.text();
-    const tabText = getFromBetween.get(rawHtml,"pre", "/pre")[1];
 
-    let eTabs = getFromBetween.get(tabText,"E|", "|");
-    let BTabs = getFromBetween.get(tabText,"B|", "|");
-    let GTabs = getFromBetween.get(tabText,"G|", "|");
-    let DTabs = getFromBetween.get(tabText,"D|", "|");
-    let ATabs = getFromBetween.get(tabText,"A|", "|");
-    
-    const lines = [];
-    for (let i = 0; i < BTabs.length; i++) {
-        lines.push({
-            "e" : eTabs[i*2],
-            "B" : BTabs[i],
-            "G" : GTabs[i],
-            "D" : DTabs[i],
-            "A" : ATabs[i],
-            "E" : eTabs[((i-1)*2) + 1]
-        })
-    }
+    const regex = /[\n]+(\w[# ]?)\|?([:|]?[-—\d\/hpbimXxrs~\\|]{5,})/gm;
 
-    return lines;
-}
+    const tabs = [];
+    let read = 0;
+    let results;
+    while ((results = regex.exec(rawHtml)) !== null) {
+        const note = results[1]
+        const line = results[2];
 
-var getFromBetween = {
-    results:[],
-    string:"",
-    getFromBetween:function (sub1,sub2) {
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
-        var SP = this.string.indexOf(sub1)+sub1.length;
-        var string1 = this.string.substr(0,SP);
-        var string2 = this.string.substr(SP);
-        var TP = string1.length + string2.indexOf(sub2);
-        return this.string.substring(SP,TP);
-    },
-    removeFromBetween:function (sub1,sub2) {
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return false;
-        var removal = sub1+this.getFromBetween(sub1,sub2)+sub2;
-        this.string = this.string.replace(removal,"");
-    },
-    getAllResults:function (sub1,sub2) {
-        // first check to see if we do have both substrings
-        if(this.string.indexOf(sub1) < 0 || this.string.indexOf(sub2) < 0) return;
+        if (read < 6) {
+            tabs.push({
+                note,
+                line: line.split('')
+            });
+        } else {
+            const stringObj = tabs.find((string) => 
+                string.note === note
+            );
 
-        // find one result
-        var result = this.getFromBetween(sub1,sub2);
-        // push it to the results array
-        this.results.push(result);
-        // remove the most recently found one from the string
-        this.removeFromBetween(sub1,sub2);
+            if (!stringObj) {
+                throw new Error('Failed to parse');
+            }
 
-        // if there's more substrings
-        if(this.string.indexOf(sub1) > -1 && this.string.indexOf(sub2) > -1) {
-            this.getAllResults(sub1,sub2);
+            stringObj.line = [...stringObj.line, ...line.split('')];
         }
-        else return;
-    },
-    get:function (string,sub1,sub2) {
-        this.results = [];
-        this.string = string;
-        this.getAllResults(sub1,sub2);
-        return this.results;
+        read++;
     }
-};
+
+    if (tabs.length !== 6) {
+        throw new Error('Failed to parse');
+    }
+    return tabs;
+}
