@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: "#5352ed",
-    zIndex: 0,
-    top: 0
+    zIndex: 0
+    // bottom: 0,
+    // position: "absolute"
   }
 });
 
@@ -24,7 +25,7 @@ export function TabDisplay({ letters }) {
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: Dimensions.get("window").height,
+      toValue: -Dimensions.get("window").height,
       duration: 10000
     }).start(() => {
       //   setAnimation(new Animated.Value(0));

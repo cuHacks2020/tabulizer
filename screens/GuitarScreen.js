@@ -24,7 +24,7 @@ export function GuitarScreen(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: "#5352ed" }}>
         <Bar />
         <TabDisplay song={song} />
       </View>

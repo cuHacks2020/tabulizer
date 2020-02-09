@@ -3,6 +3,7 @@ import { Dimensions, View, StyleSheet, Text } from "react-native";
 
 const styles = StyleSheet.create({
   column: {
+    bottom: 0,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
@@ -19,13 +20,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     width: "100%",
     height: 20,
-    alignItems: "center"
+    alignItems: "center",
+    bottom: 0
   }
 });
 
 export function TabColumn({ letter, data }) {
   return (
     <View style={styles.column}>
+      <View style={{ flex: 1, height: Dimensions.get("window").height }} />
       <View style={styles.headerContainer}>
         <Text style={styles.header}>{letter}</Text>
       </View>
