@@ -28,8 +28,8 @@ export function TabColumn({letter, data}) {
       <View style={styles.headerContainer}>
         <Text style={styles.header}>{letter}</Text>
       </View>
-      {data.map(item => (
-        <View style={styles.headerContainer}>
+      {data.map((item) => (
+        <View key={item.note} style={styles.headerContainer}>
           <Text style={styles.header}>{item}</Text>
         </View>
       ))}
