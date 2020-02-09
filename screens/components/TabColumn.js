@@ -1,28 +1,29 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { Dimensions, View, StyleSheet, Text } from "react-native";
 
 const styles = StyleSheet.create({
   column: {
     flex: 1,
     flexDirection: "column",
-    alignItems: 'center',
-    borderColor: 'white',
+    alignItems: "center",
+    borderColor: "white",
     borderLeftWidth: 1,
     borderRightWidth: 1,
+    height: Dimensions.get("window").height
   },
   header: {
-    color: "white",
+    color: "white"
   },
   headerContainer: {
     borderBottomColor: "white",
     borderBottomWidth: 1,
-    width: '100%',
+    width: "100%",
     height: 20,
-    alignItems: 'center',
+    alignItems: "center"
   }
 });
 
-export function TabColumn({letter, data}) {
+export function TabColumn({ letter, data }) {
   return (
     <View style={styles.column}>
       <View style={styles.headerContainer}>
@@ -34,5 +35,5 @@ export function TabColumn({letter, data}) {
         </View>
       ))}
     </View>
-  )
+  );
 }

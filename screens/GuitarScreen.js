@@ -1,7 +1,15 @@
 import React from "react";
-import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import { TabDisplay } from "./components/TabDisplay";
 import { GuitarDisplay } from "./components/GuitarDisplay";
+import { Bar } from "./components/Bar";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +25,7 @@ export function GuitarScreen(props) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
+        <Bar />
         <TabDisplay song={song} />
       </View>
       <View style={{ flex: 2, backgroundColor: "indianred" }}>
@@ -24,7 +33,7 @@ export function GuitarScreen(props) {
       </View>
     </View>
   );
-};
+}
 
 // const styles = StyleSheet.create({
 //   container: {

@@ -1,12 +1,19 @@
-import React, {useState } from "react";
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator
+} from "react-native";
 import { getSong } from "../src/WebParser";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   appName: {
     fontSize: 55,
@@ -26,8 +33,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 350,
     marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     height: 50
   },
   buttonText: {
@@ -36,7 +43,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     width: 350,
     marginBottom: 20,
@@ -44,23 +51,29 @@ const styles = StyleSheet.create({
   }
 });
 
-export const HomeScreen = (props) => {
+export const HomeScreen = props => {
   const { navigation } = props;
   const [song, setSong] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState('https://www.azchords.com/c/cashjohnny-tabs-717/hurt-tabs-7752.html');
+  const [url, setUrl] = useState(
+    "https://www.azchords.com/c/cashjohnny-tabs-717/hurt-tabs-7752.html"
+  );
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity key={item.key} style={styles.button} onPress={() => navigation.navigate('Guitar')}>
+    <TouchableOpacity
+      key={item.key}
+      style={styles.button}
+      onPress={() => navigation.navigate("Guitar")}
+    >
       <Text style={styles.buttonText}>{item.key}</Text>
     </TouchableOpacity>
-  )
+  );
 
   const onSearch = async () => {
     setLoading(true);
     let songObj;
     try {
-      songObj = await getSong(url)
+      songObj = await getSong(url);
       setSong(songObj);
     } catch {
       setSong("bad");
@@ -68,7 +81,8 @@ export const HomeScreen = (props) => {
       return;
     }
 
-    navigation.navigate('Guitar', {song: songObj});
+    console.log(songObj);
+    navigation.navigate("Guitar", { song: songObj });
     setLoading(false);
   };
 
@@ -85,8 +99,11 @@ export const HomeScreen = (props) => {
       <TouchableOpacity style={styles.button} onPress={onSearch}>
         <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
-      {loading ? <ActivityIndicator size="large" color="#0000ff" /> : song === "bad" && <Text>Failed to parse song</Text>}
-
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        song === "bad" && <Text>Failed to parse song</Text>
+      )}
     </View>
   );
 };
