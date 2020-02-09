@@ -20,19 +20,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export function TabDisplay({ letters }) {
+export function TabDisplay({ song }) {
   const [animation, setAnimation] = useState(new Animated.Value(0));
+  const [size, setSize] = useState(0);
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: -Dimensions.get("window").height,
+      toValue: -Dimensions.get("window").height * 5,
       duration: 10000
     }).start(() => {
-      //   setAnimation(new Animated.Value(0));
       //If you remove above line then it will stop the animation at toValue point
     });
   };
-  startAnimation();
 
   const transformStyle = {
     transform: [
@@ -42,15 +41,20 @@ export function TabDisplay({ letters }) {
     ]
   };
 
+  const layoutSize = event => {
+    setSize(event.nativeEvent.layout.height);
+  };
+
+  startAnimation();
+
   return (
-    // <ScrollView ref={scrollRef} style={styles.scrollView}>
-    <Animated.View style={[styles.tabDisplay, transformStyle]}>
-      <View style={styles.tabDisplay}>
-        {song.map(string => (
-          <TabColumn letter={string.note} data={string.line}></TabColumn>
-        ))}
-      </View>
+    <Animated.View
+      style={[styles.tabDisplay, transformStyle]}
+      onLayout={layoutSize}
+    >
+      {song.map(string => (
+        <TabColumn letter={string.note} data={string.line}></TabColumn>
+      ))}
     </Animated.View>
-    // </ScrollView>
   );
 }

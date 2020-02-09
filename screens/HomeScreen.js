@@ -81,7 +81,6 @@ export const HomeScreen = props => {
       return;
     }
 
-    console.log(songObj);
     navigation.navigate("Guitar", { song: songObj });
     setLoading(false);
   };
