@@ -12,12 +12,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export const GuitarScreen = props => {
+export function GuitarScreen(props) {
+  console.log(props.navigation.state.params);
+  const song = props.navigation.state.params.song;
 
+  console.log(song);
   return (
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
-        <TabDisplay />
+        <TabDisplay song={song}/>
       </View>
       <View style={{ flex: 3 }}>
         <GuitarDisplay />
