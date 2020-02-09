@@ -11,17 +11,17 @@ const styles = StyleSheet.create({
 });
 
 export function GuitarScreen(props) {
-  console.log(props.navigation.state.params);
+  // console.log(props.navigation.state.params);
   const song = props.navigation.state.params.song;
 
   console.log(song);
   return (
     <View style={styles.container}>
-      <View style={{ flex: 2 }}>
+      <View style={{ flex: 1 }}>
         <TabDisplay song={song} />
       </View>
-      <View style={{ flex: 3, backgroundColor: "indianred" }}>
-        <GuitarDisplay />
+      <View style={{ flex: 2, backgroundColor: "indianred" }}>
+        <GuitarDisplay song={song} />
       </View>
     </View>
   );

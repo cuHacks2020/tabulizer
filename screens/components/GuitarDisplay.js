@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 const styles = StyleSheet.create({
     guitarDisplay: {
@@ -30,19 +30,24 @@ const styles = StyleSheet.create({
     }
 });
 
-export function GuitarDisplay(props) {
+export function GuitarDisplay({ song }) {
     let frets = [];
     let strings = [];
     let numStrings = 6;
     let numFrets = 14;
-    strings.push(<View style={{ width: 20 }}></View>);
+    strings.push(<View style={{ width: 15 }}></View>); //15 FOR DEEN'S iPHONE, 20 FOR VINH'S BRICK FONE
     for (let i = 0; i < numStrings; i++) {
         frets = [];
         for (let j = 0; j < numFrets; j++) {
+            for (let k = 0; k < song[i].line.length; j++) {
+                let regExpression = /\d/.test(song[i].line)
+                console.log(regExpression);
+
+            }
             frets.push(<View style={styles.fret}></View>);
         }
-        strings.push(<View style={styles.string}>{frets}</View>);
+        strings.push(<View style={styles.string}><Text style={{ fontWeight: "bold", color: "white" }}> {song[i].note} </Text>{frets}</View >);
     }
-    strings.push(<View style={{ width: 20 }}></View>);
+    strings.push(<View style={{ width: 15 }}></View>);
     return <View style={styles.guitarDisplay}>{strings}</View>;
 }
