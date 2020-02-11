@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Image,
@@ -25,12 +25,14 @@ export function GuitarScreen(props) {
     return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
   };
 
-  let index = 4;
+  [index, setIndex] = useState(0);
 
   const handleScroll = event => {
-    index = Math.floor(
-      scale(event.nativeEvent.contentOffset.y, 0, 2290, 0, song[0].line.length)
+    let val = Math.floor(
+      scale(event.nativeEvent.contentOffset.y, 0, 3000, 0, song[0].line.length)
     );
+    console.log(event.nativeEvent.contentOffset.y);
+    setIndex(val);
   };
 
   return (
