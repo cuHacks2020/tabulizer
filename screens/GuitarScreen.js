@@ -1,7 +1,15 @@
-import React from "react";
-import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import { TabDisplay } from "./components/TabDisplay";
 import { GuitarDisplay } from "./components/GuitarDisplay";
+import { Bar } from "./components/Bar";
 
 const styles = StyleSheet.create({
   container: {
@@ -13,18 +21,37 @@ const styles = StyleSheet.create({
 export function GuitarScreen(props) {
   // console.log(props.navigation.state.params);
   const song = props.navigation.state.params.song;
+  const scale = (num, in_min, in_max, out_min, out_max) => {
+    return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+  };
+
+  [index, setIndex] = useState(0);
+
+  const handleScroll = event => {
+    let val = Math.floor(
+      scale(event.nativeEvent.contentOffset.y, 0, 3000, 0, song[0].line.length)
+    );
+    console.log(event.nativeEvent.contentOffset.y);
+    setIndex(val);
+  };
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
-        <TabDisplay song={song} />
+        <Bar />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          onScroll={handleScroll}
+        >
+          <TabDisplay song={song} />
+        </ScrollView>
       </View>
       <View style={{ flex: 2, backgroundColor: "indianred" }}>
-        <GuitarDisplay tabIndex={6} song={song} />
+        <GuitarDisplay tabIndex={index} song={song} />
       </View>
     </View>
   );
-};
+}
 
 // const styles = StyleSheet.create({
 //   container: {
