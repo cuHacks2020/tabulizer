@@ -11,7 +11,7 @@
     "@egjs/hammerjs": "^2.0.17",
     "@react-native-community/masked-view": "^0.1.6",
     "expo": "~36.0.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
